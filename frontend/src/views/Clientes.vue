@@ -147,7 +147,7 @@ export default {
 				);
 
 				this.$toast.dismiss(idToast);
-				this.$toast.success("¡Edición exitosa!");
+				this.$toast.success("¡Cambio de estado exitoso!");
 				this.refresh();
 			} catch (error) {
 				console.error("Error al obtener los datos del cliente:", error);

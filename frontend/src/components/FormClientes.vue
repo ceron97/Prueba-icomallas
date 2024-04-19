@@ -124,7 +124,7 @@ export default {
 		async updateItem() {
 			const idToast = this.$toast("Por favor espera...");
 			try {
-				await axios.put(`http://localhost:8000/api/clientes/editar/${this.formData.id}`, this.formData, {
+				await axios.put(`http://localhost:8000/api/clientes/editar/${this.id}`, this.formData, {
 					withCredentials: true,
 				});
 

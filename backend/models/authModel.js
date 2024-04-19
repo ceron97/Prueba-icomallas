@@ -16,7 +16,7 @@ const logger = require(`${process.cwd()}/utils/logger`);
 exports.logIn = async (connectionBD, username, password) => {
 	try {
 		const result = await connectionBD.any(
-			`SELECT USU."id"
+			`SELECT USU."id", USU."estado"
                 FROM "users" USU
                 WHERE USU."username" = $1
 					AND USU."password" = $2;`,

@@ -17,9 +17,14 @@ const AuthService = {
 			toast.dismiss(idToast);
 			toast.success("¡Inicio de sesión exitoso!");
 		} catch (error) {
-			console.log("error:", error);
+			console.error("Error al obtener los datos del cliente:", error);
 			toast.dismiss(idToast);
-			toast.error("¡Error al iniciar sesión! Por favor, verifica tus credenciales.");
+			if (error?.response?.data?.status) {
+				toast.error(error?.response?.data?.message);
+			} else {
+				toast.error("¡Error al iniciar sesión! Por favor, verifica tus credenciales.");
+			}
+
 			throw new Error("Error al iniciar sesión. Por favor, comprueba tus credenciales.");
 		}
 	},

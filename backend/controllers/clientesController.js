@@ -15,8 +15,6 @@ exports.crear = async (body, user) => {
 		if (!connectionBD) throw "Error en la conexión";
 		await connectionBD.query("BEGIN"); // Iniciar transacción en BD
 
-		delete body["ID"];
-
 		let search_cliente = await clientesModel.searchNit(connectionBD, body.nit);
 		if (search_cliente.status !== 406) {
 			await connectionBD.query("ROLLBACK"); // Se ejecuta si hubo algún error durante las operaciones, no confirma los cambios
@@ -30,7 +28,6 @@ exports.crear = async (body, user) => {
 
 			return search_cliente;
 		} else {
-			delete body["id"];
 			body["id_user_create"] = user.id_user;
 
 			let create = await clientesModel.crear(connectionBD, body);

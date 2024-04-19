@@ -8,7 +8,7 @@ const token = require("./utils/token");
 
 const authRouter = require("./routes/auth");
 const clientesRouter = require("./routes/clientes");
-const usersRouter = require("./routes/users");
+const usuariosRouter = require("./routes/usuarios");
 
 const app = express();
 app.listen(process.env.NODE_PORT, () => {
@@ -44,6 +44,6 @@ app.use(
 
 app.use(`${process.env.PATH_REQUEST}/auth`, authRouter);
 app.use(`${process.env.PATH_REQUEST}/clientes`, token.verify, clientesRouter);
-app.use(`${process.env.PATH_REQUEST}/users`, token.verify, usersRouter);
+app.use(`${process.env.PATH_REQUEST}/usuarios`, token.verify, usuariosRouter);
 
 module.exports = app;

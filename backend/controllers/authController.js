@@ -18,6 +18,13 @@ exports.logIn = async (body) => {
 		if (data_user.status !== 200) {
 			return data_user;
 		} else {
+			if (!data_user.content.estado)
+				return {
+					status: 403,
+					title: "Autenticación fallida",
+					message: "El usuario no tiene acceso al sistema.",
+				};
+
 			let data_rol = await authModel.rolUser(connectionBD, data_user.content.id);
 			if (data_rol.status !== 200) {
 				return data_rol;

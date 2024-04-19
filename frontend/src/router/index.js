@@ -15,6 +15,7 @@ const routes = [
 		component: Home,
 		meta: {
 			requiresAuth: true, // Marca esta ruta como protegida
+			roles: [],
 		},
 	},
 	{
@@ -59,7 +60,8 @@ router.beforeEach((to, from, next) => {
 		// Si es una ruta protegida y esta autenticado
 		const userRoles = AuthService.getRoles(); // Obtener los roles del usuario desde el servicio de autenticación
 		const routeRoles = to.meta.roles; // Obtener los roles permitidos para la ruta
-		if (routeRoles && userRoles.some((role) => routeRoles.includes(role))) {
+
+		if ((routeRoles && userRoles.some((role) => routeRoles.includes(role))) || routeRoles.length === 0) {
 			// Si el usuario tiene al menos uno de los roles permitidos para la ruta, dejarlo pasar
 			next();
 		} else {

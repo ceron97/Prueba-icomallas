@@ -5,18 +5,36 @@
 				<nav class="navbar" role="navigation" aria-label="main navigation">
 					<div class="navbar-start">
 						<div class="navbar-item">
-							<router-link to="/home" class="button is-primary is-medium">Home</router-link>
+							<router-link
+								to="/home"
+								class="button is-primary is-medium"
+								exact
+								:class="{ 'is-active': $route.path === '/home' }"
+								>Home</router-link
+							>
 						</div>
 
 						<!-- Mostrar elementos del menú según los roles -->
 						<template v-if="userRoles.includes(1)">
 							<div class="navbar-item">
-								<router-link to="/admin" class="button is-primary is-medium">Admin</router-link>
+								<router-link
+									to="/admin"
+									class="button is-primary is-medium"
+									exact
+									:class="{ 'is-active': $route.path === '/admin' }"
+									>Admin</router-link
+								>
 							</div>
 						</template>
 						<template v-if="userRoles.includes(2)">
 							<div class="navbar-item">
-								<router-link to="/clientes" class="button is-primary is-medium">Clientes</router-link>
+								<router-link
+									to="/clientes"
+									class="button is-primary is-medium"
+									exact
+									:class="{ 'is-active': $route.path === '/clientes' }"
+									>Clientes</router-link
+								>
 							</div>
 						</template>
 					</div>
@@ -145,5 +163,9 @@ button.is-primary:hover {
 
 main {
 	padding: 20px;
+}
+
+.is-active {
+	background-color: #4a4a4a; /* Color de fondo cuando el elemento está activo */
 }
 </style>

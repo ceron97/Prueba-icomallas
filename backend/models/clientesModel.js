@@ -193,7 +193,8 @@ exports.getClientesAsesor = async (connectionBD, id_user) => {
 			`SELECT "clientes".*, "users"."nombre" AS "usuario_creo"
 				FROM "clientes", "users"
 				WHERE "id_user_create" = $1
-					AND "clientes"."id_user_create" = "users"."id";`,
+					AND "clientes"."id_user_create" = "users"."id"
+				ORDER BY "clientes"."id" DESC;`,
 			[id_user]
 		);
 
@@ -228,7 +229,8 @@ exports.getClientesAdmin = async (connectionBD) => {
 		const result = await connectionBD.any(
 			`SELECT "clientes".*, "users"."nombre"
 				FROM "clientes", "users"
-				WHERE "clientes"."id_user_create" = "users"."id";`
+				WHERE "clientes"."id_user_create" = "users"."id"
+				ORDER BY "clientes"."id" DESC;`
 		);
 
 		if (result.length > 0) {
@@ -297,7 +299,8 @@ exports.searchNit = async (connectionBD, nit) => {
 exports.getClienteId = async (connectionBD, id_cliente) => {
 	try {
 		const result = await connectionBD.any(
-			`SELECT "clientes".*
+			`SELECT "clientes"."nit", "clientes"."razon_social", "clientes"."correo",
+					"clientes"."telefono", "clientes"."estado"
                 FROM "clientes"
 				WHERE "clientes"."id" = $1;`,
 			[id_cliente]
@@ -336,9 +339,9 @@ exports.getClienteRepetido = async (connectionBD, id, nit) => {
 		const result = await connectionBD.any(
 			`SELECT "clientes"."id"
                 FROM "clientes"
-				WHERE "clientes"."id" != $2
-					AND "clientes"."nit" = $1;`,
-			[nit, id]
+				WHERE "clientes"."id" != $1
+					AND "clientes"."nit" = $2;`,
+			[id, nit]
 		);
 
 		if (result.length > 0) {
